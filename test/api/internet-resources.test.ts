@@ -91,8 +91,12 @@ void describe('Required Internet resource', () => {
     assert.ok(body.includes('https://pastebin.com/4U1V1UjU'))
   })
 
-  void it('GitHub issue (https://github.com/apostrophecms/sanitize-html/issues/29) for "Server-side XSS Protection" challenge available', async () => {
+  void it('GitHub issue (https://github.com/apostrophecms/sanitize-html/issues/29) for "Server-side XSS Protection" challenge available', async (t) => {
     const res = await fetch('https://github.com/apostrophecms/sanitize-html/issues/29', { headers: browserHeaders })
+    if (res.status === 403 && res.headers.get('cf-mitigated') === 'challenge') {
+      t.skip('GitHub served a bot challenge instead of the page; cannot verify from a non-browser HTTP client')
+      return
+    }
     const body = await res.text()
     assert.equal(res.status, 200)
     assert.ok(body.includes('Sanitization is not applied recursively'))
