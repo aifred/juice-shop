@@ -218,8 +218,14 @@ jobs:
           cp server-lcov.info coverage/server-tests/lcov.info
           cp api-lcov.info coverage/api-tests/lcov.info
         shell: bash
+      - name: "Extract project version"
+        run: echo "PROJECT_VERSION=$(node -p "require('./package.json').version")" >> "$GITHUB_ENV"
+        shell: bash
       - name: "SonarQube Scan"
         uses: SonarSource/sonarqube-scan-action@22918119ff8e1ca75a623e15c8296b6ea4fbe28f #v8.2.1
+        with:
+          args: >-
+            -Dsonar.projectVersion=${{ env.PROJECT_VERSION }}
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   smoke-test:
