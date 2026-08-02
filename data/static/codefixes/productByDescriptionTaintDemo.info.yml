@@ -1,0 +1,11 @@
+fixes:
+  - id: 1
+    explanation: "Trying to prevent any injection attacks with a custom-built blocklist mechanism is doomed to fail. It might work for some simpler attack payloads but an attacker with time and skills can likely bypass it at some point."
+  - id: 2
+    explanation: 'Passing the raw, unvalidated request parameter straight into the lookup function is not safe by itself, but is acceptable here only if the called function itself relies on a parameterized (bound) query that keeps the malicious input from ever being able to tamper with the SQL query syntax.'
+  - id: 3
+    explanation: "Limiting the allowed description values via startsWith() would still allow SQL Injection via a specially crafted prefix, e.g. \"apple' OR '1'='1\" or similarly prefixed payloads. This fix also unnecessarily restricts the legitimate use of the description lookup."
+hints:
+  - "Try to identify any variables in the code that might contain arbitrary user input."
+  - "Follow the user input through the function call and try to spot places where it might be abused for malicious purposes."
+  - "Can you spot a place where user input is passed on to a query without being safely handled?"
