@@ -894,6 +894,36 @@
 			6
 		]
 	},
+	"productByDescriptionTaintDemo_1.ts": {
+		"added": [
+			11
+		],
+		"removed": [
+			4,
+			11
+		]
+	},
+	"productByDescriptionTaintDemo_2_correct.ts": {
+		"added": [
+			11
+		],
+		"removed": [
+			11
+		]
+	},
+	"productByDescriptionTaintDemo_3.ts": {
+		"added": [
+			11
+		],
+		"removed": [
+			4,
+			5,
+			6,
+			7,
+			8,
+			11
+		]
+	},
 	"productByNameTaintDemo_1.ts": {
 		"added": [
 			11
@@ -922,6 +952,33 @@
 			7,
 			8,
 			11
+		]
+	},
+	"productLookupByDescriptionTaintDemo_1.ts": {
+		"added": [
+			3
+		],
+		"removed": [
+			3
+		]
+	},
+	"productLookupByDescriptionTaintDemo_2_correct.ts": {
+		"added": [
+			3
+		],
+		"removed": [
+			3,
+			4,
+			5,
+			6
+		]
+	},
+	"productLookupByDescriptionTaintDemo_3.ts": {
+		"added": [
+			3
+		],
+		"removed": [
+			3
 		]
 	},
 	"productLookupByNameTaintDemo_1.ts": {
