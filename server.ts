@@ -81,6 +81,7 @@ import { dataExport } from './routes/dataExport'
 import { chat } from './routes/chat'
 import { retrieveBasket } from './routes/basket'
 import { searchProducts } from './routes/search'
+import { retrieveProductByName } from './routes/productByName'
 import { trackOrder } from './routes/trackOrder'
 import { saveLoginIp } from './routes/saveLoginIp'
 import { serveKeyFiles } from './routes/keyServer'
@@ -600,6 +601,7 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   app.get('/rest/user/whoami', utils.asyncHandler(retrieveLoggedInUser()))
   app.get('/rest/user/authentication-details', utils.asyncHandler(authenticatedUsers()))
   app.get('/rest/products/search', utils.asyncHandler(searchProducts()))
+  app.get('/rest/products/by-name', utils.asyncHandler(retrieveProductByName()))
   app.get('/rest/basket/:id', utils.asyncHandler(retrieveBasket()))
   app.post('/rest/basket/:id/checkout', placeOrder())
   app.put('/rest/basket/:id/coupon/:coupon', utils.asyncHandler(applyCoupon()))
