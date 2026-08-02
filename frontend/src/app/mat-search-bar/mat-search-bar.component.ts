@@ -33,11 +33,11 @@ export class MatSearchBarComponent extends AbstractControlValueAccessor
 
   readonly placeholder = input('')
   readonly alwaysOpen = input(false)
-  readonly onBlur = output<string>()
-  readonly onClose = output<void>()
-  readonly onEnter = output<string>()
-  readonly onFocus = output<string>()
-  readonly onOpen = output<void>()
+  readonly blur = output<string>()
+  readonly closeEvent = output<void>()
+  readonly enter = output<string>()
+  readonly focus = output<string>()
+  readonly openEvent = output<void>()
 
   searchVisible = false
   private pendingFocus = false
@@ -66,27 +66,27 @@ export class MatSearchBarComponent extends AbstractControlValueAccessor
     }
     this.value = ''
     this.updateChanges()
-    this.onClose.emit()
+    this.closeEvent.emit()
   }
 
   public open (): void {
     this.searchVisible = true
     this.pendingFocus = true
-    this.onOpen.emit()
+    this.openEvent.emit()
   }
 
   onBlurring (searchValue: string) {
     if (!searchValue && !this.alwaysOpen()) {
       this.searchVisible = false
     }
-    this.onBlur.emit(searchValue)
+    this.blur.emit(searchValue)
   }
 
   onEnterring (searchValue: string) {
-    this.onEnter.emit(searchValue)
+    this.enter.emit(searchValue)
   }
 
   onFocussing (searchValue: string) {
-    this.onFocus.emit(searchValue)
+    this.focus.emit(searchValue)
   }
 }
