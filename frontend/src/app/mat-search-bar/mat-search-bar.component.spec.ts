@@ -28,10 +28,10 @@ describe('MatSearchBarComponent', () => {
     })
 
     it('should focus input on opening the search', () => {
-        vi.spyOn(component.onOpen, 'emit')
+        vi.spyOn(component.openEvent, 'emit')
         component.open()
         expect(component.searchVisible).toBe(true)
-        expect(component.onOpen.emit).toHaveBeenCalled()
+        expect(component.openEvent.emit).toHaveBeenCalled()
         fixture.detectChanges()
         expect(document.activeElement).toBe(component.inputElement().nativeElement)
     })
@@ -104,24 +104,24 @@ describe('MatSearchBarComponent', () => {
     })
 
     it('should clear value on closing the search', () => {
-        vi.spyOn(component.onClose, 'emit')
+        vi.spyOn(component.closeEvent, 'emit')
         component.value = 'test'
         component.searchVisible = true
         component.close()
         expect(component.searchVisible).toBe(false)
         expect(component.value).toBe('')
-        expect(component.onClose.emit).toHaveBeenCalled()
+        expect(component.closeEvent.emit).toHaveBeenCalled()
     })
 
     it('should not close the search when set to be always open', () => {
-        vi.spyOn(component.onClose, 'emit')
+        vi.spyOn(component.closeEvent, 'emit')
         fixture.componentRef.setInput('alwaysOpen', true)
         component.searchVisible = true
         component.value = 'test'
         component.close()
         expect(component.searchVisible).toBe(true)
         expect(component.value).toBe('')
-        expect(component.onClose.emit).toHaveBeenCalled()
+        expect(component.closeEvent.emit).toHaveBeenCalled()
     })
 
     it('should open search by default when set to be always open', () => {
@@ -132,31 +132,31 @@ describe('MatSearchBarComponent', () => {
     })
 
     it('should hide search on blur when value is empty', () => {
-        vi.spyOn(component.onBlur, 'emit')
+        vi.spyOn(component.blurEvent, 'emit')
         component.searchVisible = true
         component.onBlurring('')
-        expect(component.onBlur.emit).toHaveBeenCalledWith('')
+        expect(component.blurEvent.emit).toHaveBeenCalledWith('')
         expect(component.searchVisible).toBe(false)
     })
 
     it('should keep search visible on blur if set to be always open', () => {
-        vi.spyOn(component.onBlur, 'emit')
+        vi.spyOn(component.blurEvent, 'emit')
         fixture.componentRef.setInput('alwaysOpen', true)
         component.searchVisible = true
         component.onBlurring('')
-        expect(component.onBlur.emit).toHaveBeenCalledWith('')
+        expect(component.blurEvent.emit).toHaveBeenCalledWith('')
         expect(component.searchVisible).toBe(true)
     })
 
     it('should emit provided value when enterring', () => {
-        vi.spyOn(component.onEnter, 'emit')
+        vi.spyOn(component.enter, 'emit')
         component.onEnterring('query')
-        expect(component.onEnter.emit).toHaveBeenCalledWith('query')
+        expect(component.enter.emit).toHaveBeenCalledWith('query')
     })
 
     it('should emit provided value when focussing', () => {
-        vi.spyOn(component.onFocus, 'emit')
+        vi.spyOn(component.focusEvent, 'emit')
         component.onFocussing('query')
-        expect(component.onFocus.emit).toHaveBeenCalledWith('query')
+        expect(component.focusEvent.emit).toHaveBeenCalledWith('query')
     })
 })
