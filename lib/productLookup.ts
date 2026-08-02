@@ -7,6 +7,9 @@ import * as models from '../models/index'
 
 // vuln-code-snippet start productLookupByNameTaintDemo
 export async function findProductsByExactName (name: string) {
-  return await models.sequelize.query(`SELECT * FROM Products WHERE name = '${name}' AND deletedAt IS NULL`) // vuln-code-snippet vuln-line productLookupByNameTaintDemo
+  return await models.sequelize.query(
+    'SELECT * FROM Products WHERE name = :name AND deletedAt IS NULL',
+    { replacements: { name } }
+  )
 }
 // vuln-code-snippet end productLookupByNameTaintDemo
