@@ -132,7 +132,7 @@ export const redirectAllowlist = new Set([
 
 export const getAllowedRedirectUrl = (url: string) => {
   for (const allowedUrl of redirectAllowlist) {
-    if (url === allowedUrl) {
+    if (url.includes(allowedUrl)) {
       return allowedUrl
     }
   }

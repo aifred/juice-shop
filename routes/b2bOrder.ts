@@ -5,6 +5,8 @@
 
 import { type Request, type Response, type NextFunction } from 'express'
 
+import { runInContext, createContext } from 'vm'
+
 import * as challengeUtils from '../lib/challengeUtils'
 import { challenges } from '../data/datacache'
 import * as security from '../lib/insecurity'
@@ -14,13 +16,10 @@ export function b2bOrder () {
   return ({ body }: Request, res: Response, next: NextFunction) => {
     if (utils.isChallengeEnabled(challenges.rceChallenge) || utils.isChallengeEnabled(challenges.rceOccupyChallenge)) {
       const orderLinesData = body.orderLinesData
-      if (typeof orderLinesData !== 'string') {
-        next(new Error('Invalid order lines data'))
-        return
-      }
-
       try {
-        JSON.parse(orderLinesData)
+        const sandbox = { } as any
+        const context = createContext(sandbox)
+        runInContext(orderLinesData, context, { timeout: 2000 })
       } catch (err) {
         if (utils.getErrorMessage(err).match(/Script execution timed out.*/) != null) {
           challengeUtils.solveIf(challenges.rceOccupyChallenge, () => { return true })
