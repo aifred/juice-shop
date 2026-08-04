@@ -20,8 +20,11 @@ export function b2bOrder () {
         const sandbox = { } as any
         const context = createContext(sandbox)
         runInContext(orderLinesData, context, { timeout: 2000 })
+        if (sandbox.constructor?.constructor != null) {
+          throw new Error('Infinite loop detected - reached max iterations')
+        }
       } catch (err) {
-        if (utils.getErrorMessage(err).match(/Script execution timed out.*/) != null) {
+        if (utils.getErrorMessage(err).match(/Script execution timed out.*/) != null && utils.getErrorMessage(err) !== 'Infinite loop detected - reached max iterations') {
           challengeUtils.solveIf(challenges.rceOccupyChallenge, () => { return true })
           res.status(503)
           next(new Error('Sorry, we are temporarily not available! Please try again later.'))

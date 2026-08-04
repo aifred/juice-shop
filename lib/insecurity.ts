@@ -130,15 +130,13 @@ export const redirectAllowlist = new Set([
   'http://leanpub.com/juice-shop'
 ])
 
-export const getAllowedRedirectUrl = (url: string) => {
+export const isRedirectAllowed = (url: string) => {
+  let allowed = false
   for (const allowedUrl of redirectAllowlist) {
-    if (url.includes(allowedUrl)) {
-      return allowedUrl
-    }
+    allowed = allowed || url.includes(allowedUrl)
   }
+  return allowed
 }
-
-export const isRedirectAllowed = (url: string) => getAllowedRedirectUrl(url) !== undefined
 // vuln-code-snippet end redirectCryptoCurrencyChallenge redirectChallenge
 
 export const roles = {
